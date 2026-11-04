@@ -44,6 +44,14 @@ def generate_launch_description():
                 'cantidad_victimas': ParameterValue(victimas, value_type=int),
             }],
         ),
-        # Acá se agregan el resto de los nodos del equipo (localización,
-        # navegación, percepción...). Todos con el mismo `parameters=[params, ...]`.
+        Node(
+            package='nav2_amcl', executable='amcl', name='amcl',
+            output='screen', parameters=[params, {'use_sim_time': use_sim_time}],
+        ),
+        Node(
+            package='nav2_lifecycle_manager', executable='lifecycle_manager',
+            name='lifecycle_manager_localizacion', output='screen',
+            parameters=[{'use_sim_time': use_sim_time, 'autostart': True,
+                         'node_names': ['amcl']}],
+        ),
     ])

@@ -1,12 +1,39 @@
-# Parámetros del equipo (reglamento §9.1).
-#
-# Acá solo van valores GENERALES: umbrales, ganancias, límites de velocidad,
-# rangos de color. Nada que dependa del mapa de la competencia: nada de
-# coordenadas, rutas ni posiciones de víctimas. El CI (tools/verificar_params.py)
-# rechaza estos archivos si rompen la regla.
-#
 nodo_equipo:
   ros__parameters:
-    frecuencia_control_hz: 10.0
-    velocidad_lineal_max: 0.30      # m/s
-    velocidad_angular_max: 1.00     # rad/s
+    frecuencia_control_hz: 15.0
+    velocidad_lineal_max: 0.12
+    velocidad_angular_max: 0.55
+    radio_robot: 0.28
+    margen_seguridad: 0.06
+    desaceleracion: 0.25
+    timeout_sensor: 0.4
+    paso_cobertura: 0.65
+    tolerancia_meta: 0.12
+    regreso_segundos: 450.0
+    correccion_centro_caja: 0.10
+    distancia_reporte_max: 1.5
+    sigma_localizacion_max: 0.10
+    separacion_reportes: 0.75
+    base_frame: base_link
+
+amcl:
+  ros__parameters:
+    base_frame_id: base_link
+    odom_frame_id: odom
+    global_frame_id: map
+    scan_topic: /scan
+    robot_model_type: nav2_amcl::OmniMotionModel
+    set_initial_pose: true
+    # AMCL's default initial mean is the approximate origin supplied by the rules;
+    # covariance is retained to estimate the actual placement from the LiDAR.
+    min_particles: 500
+    max_particles: 2000
+    max_beams: 100
+    laser_model_type: likelihood_field
+    laser_max_range: 8.0
+    laser_likelihood_max_dist: 2.0
+    update_min_d: 0.0
+    update_min_a: 0.0
+    resample_interval: 1
+    transform_tolerance: 0.3
+    tf_broadcast: true
